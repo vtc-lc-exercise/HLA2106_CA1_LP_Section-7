@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>The Grand Design Hotel: Visual Layout Masterclass</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display (Serif) & Lato (Sans-serif) -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #faf9f6;
+            color: #292524;
+            overflow-x: hidden;
+            /* Add padding bottom on mobile so content isn't hidden behind the audio player */
+            padding-bottom: 80px; 
+        }
+        @media (min-width: 768px) {
+            body { padding-bottom: 0; }
+        }
+
+        h1, h2, h3, h4, .serif-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .hotel-card {
+            background: #ffffff;
+            border: 1px solid #e7e5e4;
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
+            border-radius: 12px;
+        }
+
+        .gold-accent { color: #b48600; }
+        .gold-bg { background-color: #b48600; }
+        .gold-border { border-color: #b48600; }
+        
+        /* Vocabulary hint style */
+        .vocab {
+            color: #78716c;
+            font-size: 0.85em;
+            font-weight: normal;
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hidden-section { display: none !important; }
+
+        .quiz-option { transition: all 0.3s ease; }
+        .quiz-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+        }
+        
+        .exercise-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.8s ease-in-out, opacity 0.8s ease-in-out;
+            opacity: 0;
+        }
+        .exercise-container.active {
+            max-height: 8000px; /* Increased to accommodate all 4 questions */
+            opacity: 1;
+            margin-top: 1.5rem;
+        }
+
+        /* Custom bullet points */
+        .bullet-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .bullet-list li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: #b48600;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col relative">
+
+    <!-- ==========================================
+         SECTION 1: LANDING PAGE (THE LOBBY)
+         ========================================== -->
+    <main id="landing-page" class="flex-1 flex items-center justify-center p-4 md:p-6 relative z-10 min-h-screen">
+        <div class="hotel-card p-6 sm:p-10 md:p-16 max-w-3xl w-full text-center fade-in-up border-t-4 border-t-[#b48600]">
+            <span class="inline-block py-1 px-3 md:px-4 rounded-full bg-stone-100 text-[#b48600] text-xs md:text-sm font-bold tracking-widest mb-4 md:mb-6 uppercase border border-stone-200">
+                HLA2106 • CA1 Portfolio
+            </span>
+            <h1 class="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 text-stone-900 leading-tight">
+                The Grand Design Hotel<br>
+                <span class="text-xl sm:text-2xl md:text-4xl text-stone-500 italic font-normal block mt-2">
+                    Visual Layout Masterclass
+                </span>
+            </h1>
+            <div class="mb-8 md:mb-10 max-w-xl mx-auto">
+                <p class="text-base sm:text-lg md:text-xl text-stone-600 font-light">
+                    Welcome, guest. Let us elevate your hospitality posters to a five-star standard. Learn the art of elegant design.
+                </p>
+            </div>
+            <button onclick="switchPage('toc-page')" class="inline-flex items-center justify-center px-6 md:px-10 py-3 md:py-4 text-base md:text-lg font-bold text-white gold-bg rounded hover:bg-yellow-700 transition-colors duration-300 shadow-lg w-full sm:w-auto">
+                Check In to Masterclass 🛎️
+            </button>
+        </div>
+    </main>
+
+    <!-- ==========================================
+         SECTION 2: TABLE OF CONTENT (THE DIRECTORY)
+         ========================================== -->
+    <section id="toc-page" class="hidden-section flex-1 py-8 md:py-12 px-4 md:px-6 relative z-10 min-h-screen flex flex-col justify-center">
+        <div class="max-w-5xl mx-auto w-full">
+            <button onclick="switchPage('landing-page')" class="text-stone-500 hover:text-stone-800 mb-6 md:mb-8 flex items-center text-sm font-bold transition-colors uppercase tracking-wider py-2">
+                ← Back to Lobby
+            </button>
+            <div class="text-center fade-in-up mb-8 md:mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-2 text-stone-900">The Masterclass Directory <span class="vocab block sm:inline mt-1 sm:mt-0">(指南)</span></h2>
+                <p class="text-stone-600 text-base md:text-lg">Select a suite <span class="vocab">(套房)</span> below to begin your design training.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                <!-- Card 1 -->
+                <div onclick="switchPage('part1-page')" class="hotel-card p-6 md:p-8 hover:border-[#b48600] cursor-pointer fade-in-up group transition-colors" style="animation-delay: 0.1s;">
+                    <div class="text-3xl md:text-4xl mb-3 md:mb-4">🖼️</div>
+                    <h3 class="text-xl md:text-2xl font-bold text-stone-800">1. The Art of Imagery <span class="vocab">(圖像)</span></h3>
+                    <p class="text-stone-600 mt-2 text-sm md:text-base">Select the perfect photos for our hotel events.</p>
+                </div>
+                <!-- Card 2 -->
+                <div onclick="switchPage('part2-page')" class="hotel-card p-6 md:p-8 hover:border-[#b48600] cursor-pointer fade-in-up group transition-colors" style="animation-delay: 0.2s;">
+                    <div class="text-3xl md:text-4xl mb-3 md:mb-4">🎨</div>
+                    <h3 class="text-xl md:text-2xl font-bold text-stone-800">2. Hotel Atmosphere <span class="vocab">(氛圍)</span></h3>
+                    <p class="text-stone-600 mt-2 text-sm md:text-base">Mastering colours, fonts, and visual vibes <span class="vocab">(感覺)</span>.</p>
+                </div>
+                <!-- Card 3 -->
+                <div onclick="switchPage('part3-page')" class="hotel-card p-6 md:p-8 hover:border-[#b48600] cursor-pointer fade-in-up group transition-colors" style="animation-delay: 0.3s;">
+                    <div class="text-3xl md:text-4xl mb-3 md:mb-4">📐</div>
+                    <h3 class="text-xl md:text-2xl font-bold text-stone-800">3. Perfect Arrangement <span class="vocab">(排版)</span></h3>
+                    <p class="text-stone-600 mt-2 text-sm md:text-base">Understanding contrast <span class="vocab">(對比)</span> and visual hierarchy <span class="vocab">(層次)</span>.</p>
+                </div>
+                <!-- Card 4 -->
+                <div onclick="switchPage('part4-page')" class="hotel-card p-6 md:p-8 hover:border-[#b48600] cursor-pointer fade-in-up group transition-colors" style="animation-delay: 0.4s;">
+                    <div class="text-3xl md:text-4xl mb-3 md:mb-4">🛎️</div>
+                    <h3 class="text-xl md:text-2xl font-bold text-stone-800">4. The Concierge <span class="vocab">(禮賓部)</span></h3>
+                    <p class="text-stone-600 mt-2 text-sm md:text-base">Your CA1 mission checklist and Canva resources.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         PART 1: The Art of Imagery
+         ========================================== -->
+    <section id="part1-page" class="hidden-section flex-1 py-8 md:py-12 px-4 md:px-6 relative z-10 min-h-screen">
+        <div class="max-w-4xl mx-auto w-full fade-in-up">
+            <button onclick="switchPage('toc-page')" class="text-stone-500 hover:text-stone-800 mb-4 md:mb-6 flex items-center text-sm font-bold transition-colors uppercase tracking-wider py-2">← Directory</button>
+            
+            <div class="hotel-card p-6 md:p-12 mb-6 md:mb-8">
+                <h2 class="text-2xl md:text-4xl font-bold text-stone-900 mb-4 md:mb-6">1. The Art of Imagery <span class="vocab">(圖像)</span></h2>
+                
+                <ul class="bullet-list text-stone-700 text-base md:text-lg mb-6 md:mb-8">
+                    <li>In the hospitality industry <span class="vocab">(酒店業)</span>, an image speaks a thousand words.</li>
+                    <li>Photos must perfectly reflect <span class="vocab">(反映)</span> the event you are promoting.</li>
+                    <li><strong>Example:</strong> A luxury spa requires calming imagery, whilst a festive gala <span class="vocab">(節慶晚宴)</span> needs vibrant <span class="vocab">(充滿活力)</span> photos.</li>
+                </ul>
+                
+                <div class="bg-stone-50 p-4 md:p-6 rounded-lg border border-stone-200 mb-6 md:mb-8">
+                    <h3 class="serif-font text-lg md:text-xl font-bold mb-2 gold-accent">Golden Rule:</h3>
+                    <p class="text-stone-700 font-bold text-sm md:text-base">Always ask yourself: "Does this image convey <span class="vocab">(傳達)</span> the exact emotion and standard of our hotel?"</p>
+                </div>
+
+                <div class="text-center mt-8 md:mt-10">
+                    <button onclick="toggleExercise('ex1')" class="w-full sm:w-auto px-6 md:px-8 py-3 font-bold text-stone-800 bg-white border-2 border-stone-300 rounded hover:border-[#b48600] hover:text-[#b48600] transition-colors shadow-sm">
+                        Unlock Practical Exercises 📝
+                    </button>
+                </div>
+            </div>
+
+            <!-- EXERCISE CONTAINER -->
+            <div id="ex1" class="exercise-container">
+                <div class="hotel-card p-6 md:p-8 bg-stone-50 border-t-4 border-t-emerald-700">
+                    <h3 class="text-xl md:text-2xl font-bold text-emerald-900 mb-4 md:mb-6">Training Suite: Imagery</h3>
+                    
+                    <!-- Q1 -->
+                    <div class="mb-8 md:mb-10">
+                        <p class="font-bold text-base md:text-lg text-stone-800 mb-4">Q1. You are designing a poster for our hotel's <span class="text-red-600">Valentine's Day Fine Dining</span>. Which image is most appropriate <span class="vocab">(合適)</span>?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div onclick="checkAnswer('p1q1', true, 'Excellent! This image shows an elegant, romantic dining setting suitable for a luxury hotel.')" class="quiz-option cursor-pointer bg-white p-3 md:p-4 rounded-lg border-2 border-stone-200">
+                                <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=600&auto=format&fit=crop" class="w-full h-32 md:h-40 object-cover rounded mb-3" alt="Romantic Dinner">
+                                <p class="font-bold text-center text-stone-700 text-sm md:text-base">Option A</p>
+                            </div>
+                            <div onclick="checkAnswer('p1q1', false, 'Incorrect. Fast food does not reflect a fine dining experience.')" class="quiz-option cursor-pointer bg-white p-3 md:p-4 rounded-lg border-2 border-stone-200">
+                                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=600&auto=format&fit=crop" class="w-full h-32 md:h-40 object-cover rounded mb-3" alt="Fast Food Burger">
+                                <p class="font-bold text-center text-stone-700 text-sm md:text-base">Option B</p>
+                            </div>
+                        </div>
+                        <div id="p1q1-feedback" class="hidden mt-3 p-3 rounded font-bold text-sm border"></div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="mb-8 md:mb-10">
+                        <p class="font-bold text-base md:text-lg text-stone-800 mb-4">Q2. We are hosting a <span class="text-blue-700">Corporate Business Conference</span> in the Grand Ballroom. Choose the best image:</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div onclick="checkAnswer('p1q2', false, 'Incorrect. A pool party is far too casual for a business conference.')" class="quiz-option cursor-pointer bg-white p-3 md:p-4 rounded-lg border-2 border-stone-200">
+                                <img src="https://images.unsplash.com/photo-1560089000-7433a4ebbd64?q=80&w=600&auto=format&fit=crop" class="w-full h-32 md:h-40 object-cover rounded mb-3" alt="Pool Party">
+                                <p class="font-bold text-center text-stone-700 text-sm md:text-base">Option A</p>
+                            </div>
+                            <div onclick="checkAnswer('p1q2', true, 'Spot on! This portrays <span class=\'vocab\'>(展現)</span> a professional and organised environment.')" class="quiz-option cursor-pointer bg-white p-3 md:p-4 rounded-lg border-2 border-stone-200">
+                                <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=600&auto=format&fit=crop" class="w-full h-32 md:h-40 object-cover rounded mb-3" alt="Business Meeting">
+                                <p class="font-bold text-center text-stone-700 text-sm md:text-base">Option B</p>
+                            </div>
+                        </div>
+                        <div id="p1q2-feedback" class="hidden mt-3 p-3 rounded font-bold text-sm border"></div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="mb-8 md:mb-10">
+                        <p class="font-bold text-base md:text-lg text-stone-800 mb-4">Q3. The target audience <span class="vocab">(目標客群)</span> is families for our new <span class="text-orange-600">Summer Kids Club</span>. Which image works best?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div onclick="checkAnswer('p1q3', true, 'Correct! Images of children having fun directly appeal to parents looking for family activities.')" class="quiz-option cursor-pointer bg-white p-3 md:p-4 rounded-lg border-2 border-stone-200">
+                                <img src="https://images.unsplash.com/photo-1533222481259-ce20eda1e20b?q=80&w=600&auto=format&fit=crop" class="w-full h-32 md:h-40 object-cover rounded mb-3" alt="Kids playing">
+                                <p class="font-bold text-center text-stone-700 text-sm md:text-base">Option A</p>
+                            </div>
+                            <div onclick="checkAnswer('p1q3', false, 'Incorrect. A quiet library appeals to adults seeking peace, not families looking for fun.')" class="quiz-option cursor-pointer bg-white p-3 md:p-4 rounded-lg border-2 border-stone-200">
+                                <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=600&auto=format&fit=crop" class="w-full h-32 md:h-40 object-cover rounded mb-3" alt="Quiet Library">
+                                <p class="font-bold text-center text-stone-700 text-sm md:text-base">Option B</p>
+                            </div>
+                        </div>
+                        <div id="p1q3-feedback" class="hidden mt-3 p-3 rounded font-bold text-sm border"></div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="mb-4 md:mb-10">
+                        <p class="font-bold text-base md:text-lg text-stone-800 mb-4">Q4. We are promoting a <span class="text-purple-800">Halloween Midnight Party</span>. Which image sets the right mood?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div onclick="checkAnswer('p1q4', false, 'Incorrect. A bright sunny beach does not convey a spooky or nightlife atmosphere.')" class="quiz-option cursor-pointer bg-white p-3 md:p-4 rounded-lg border-2 border-stone-200">
+                                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600&auto=format&fit=crop" class="w-full h-32 md:h-40 object-cover rounded mb-3" alt="Sunny Beach">
+                                <p class="font-bold text-center text-stone-700 text-sm md:text-base">Option A</p>
+                            </div>
+                            <div onclick="checkAnswer('p1q4', true, 'Perfect! Dark, moody lighting with neon or spooky elements fits a Halloween party.')" class="quiz-option cursor-pointer bg-white p-3 md:p-4 rounded-lg border-2 border-stone-200">
+                                <img src="https://images.unsplash.com/photo-1508361001413-7a9dca21d08a?q=80&w=600&auto=format&fit=crop" class="w-full h-32 md:h-40 object-cover rounded mb-3" alt="Halloween Party">
+                                <p class="font-bold text-center text-stone-700 text-sm md:text-base">Option B</p>
+                            </div>
+                        </div>
+                        <div id="p1q4-feedback" class="hidden mt-3 p-3 rounded font-bold text-sm border"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         PART 2: The Hotel Atmosphere
+         ========================================== -->
+    <section id="part2-page" class="hidden-section flex-1 py-8 md:py-12 px-4 md:px-6 relative z-10 min-h-screen">
+        <div class="max-w-4xl mx-auto w-full fade-in-up">
+            <button onclick="switchPage('toc-page')" class="text-stone-500 hover:text-stone-800 mb-4 md:mb-6 flex items-center text-sm font-bold transition-colors uppercase tracking-wider py-2">← Directory</button>
+            
+            <div class="hotel-card p-6 md:p-12 mb-6 md:mb-8">
+                <h2 class="text-2xl md:text-4xl font-bold text-stone-900 mb-4 md:mb-6">2. The Hotel Atmosphere <span class="vocab">(氛圍)</span></h2>
+                
+                <ul class="bullet-list text-stone-700 text-base md:text-lg mb-6 md:mb-8">
+                    <li>Colours, fonts, and icons dictate <span class="vocab">(決定)</span> the "vibe" of your design.</li>
+                    <li>A heritage hotel <span class="vocab">(傳統歷史酒店)</span> uses different visual elements compared to a modern boutique resort <span class="vocab">(精品度假村)</span>.</li>
+                    <li>Consistency <span class="vocab">(一致性)</span> is key to maintaining our five-star standard.</li>
+                </ul>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
+                    <div class="bg-stone-50 p-4 md:p-6 rounded-lg border border-stone-200 text-center flex flex-col items-center sm:block">
+                        <div class="text-3xl mb-2 md:mb-3">🎨</div>
+                        <h3 class="serif-font font-bold text-base md:text-lg text-stone-800">Colours</h3>
+                        <div class="text-sm text-stone-600 mt-2 text-left inline-block">
+                            <p>• Gold/Navy = Luxury</p>
+                            <p class="mt-1">• Green/Brown = Eco <span class="vocab">(環保)</span></p>
+                        </div>
+                    </div>
+                    <div class="bg-stone-50 p-4 md:p-6 rounded-lg border border-stone-200 text-center flex flex-col items-center sm:block">
+                        <div class="text-3xl mb-2 md:mb-3">🔤</div>
+                        <h3 class="serif-font font-bold text-base md:text-lg text-stone-800">Fonts</h3>
+                        <div class="text-sm text-stone-600 mt-2 text-left inline-block">
+                            <p>• Serif <span class="vocab">(襯線)</span> = Classic</p>
+                            <p class="mt-1">• Sans-serif = Modern</p>
+                        </div>
+                    </div>
+                    <div class="bg-stone-50 p-4 md:p-6 rounded-lg border border-stone-200 text-center flex flex-col items-center sm:block">
+                        <div class="text-3xl mb-2 md:mb-3">✨</div>
+                        <h3 class="serif-font font-bold text-base md:text-lg text-stone-800">Icons</h3>
+                        <p class="text-sm text-stone-600 mt-2">Ensure all icons share the same style.</p>
+                    </div>
+                </div>
+
+                <div class="text-center mt-8 md:mt-10">
+                    <button onclick="toggleExercise('ex2')" class="w-full sm:w-auto px-6 md:px-8 py-3 font-bold text-stone-800 bg-white border-2 border-stone-300 rounded hover:border-[#b48600] hover:text-[#b48600] transition-colors shadow-sm">
+                        Unlock Practical Exercises 📝
+                    </button>
+                </div>
+            </div>
+
+            <!-- EXERCISE CONTAINER -->
+            <div id="ex2" class="exercise-container">
+                <div class="hotel-card p-6 md:p-8 bg-stone-50 border-t-4 border-t-emerald-700">
+                    <h3 class="text-xl md:text-2xl font-bold text-emerald-900 mb-4 md:mb-6">Training Suite: Atmosphere</h3>
+                    
+                    <!-- Q1 -->
+                    <div class="mb-6 md:mb-8">
+                        <p class="font-bold text-stone-800 mb-4 text-sm md:text-base">Q1. Which colour palette is most suitable for our <span class="text-green-700">Eco-Friendly Nature Resort</span>?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div onclick="checkAnswer('p2q1', true, 'Correct! Earthy tones perfectly represent nature and sustainability <span class=\'vocab\'>(可持續性)</span>.')" class="quiz-option cursor-pointer bg-white p-4 rounded-lg border-2 border-stone-200 flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+                                <div class="flex">
+                                    <div class="w-6 h-6 sm:w-8 sm:h-8 bg-green-800 rounded-l"></div>
+                                    <div class="w-6 h-6 sm:w-8 sm:h-8 bg-green-600"></div>
+                                    <div class="w-6 h-6 sm:w-8 sm:h-8 bg-amber-700 rounded-r"></div>
+                                </div>
+                                <p class="font-bold text-stone-700 text-sm md:text-base text-center sm:text-left">Earthy Greens & Browns</p>
+                            </div>
+                            <div onclick="checkAnswer('p2q1', false, 'Incorrect. Neon colours feel artificial <span class=\'vocab\'>(人工的)</span> and do not suit an eco-friendly theme.')" class="quiz-option cursor-pointer bg-white p-4 rounded-lg border-2 border-stone-200 flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+                                <div class="flex">
+                                    <div class="w-6 h-6 sm:w-8 sm:h-8 bg-pink-500 rounded-l"></div>
+                                    <div class="w-6 h-6 sm:w-8 sm:h-8 bg-cyan-400"></div>
+                                    <div class="w-6 h-6 sm:w-8 sm:h-8 bg-purple-500 rounded-r"></div>
+                                </div>
+                                <p class="font-bold text-stone-700 text-sm md:text-base text-center sm:text-left">Neon Pink & Cyan</p>
+                            </div>
+                        </div>
+                        <div id="p2q1-feedback" class="hidden mt-3 p-3 rounded font-bold text-sm border"></div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="mb-6 md:mb-8">
+                        <p class="font-bold text-stone-800 mb-4 text-sm md:text-base">Q2. Choose the best typography <span class="vocab">(字體設計)</span> for a <span class="text-stone-900">Luxury Heritage Hotel</span> invitation:</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div onclick="checkAnswer('p2q2', false, 'Incorrect. Comic fonts lack the sophistication <span class=\'vocab\'>(成熟優雅)</span> required for a heritage hotel.')" class="quiz-option cursor-pointer bg-white p-4 md:p-6 rounded-lg border-2 border-stone-200 text-center">
+                                <h4 class="text-xl md:text-2xl text-blue-500 mb-1" style="font-family: 'Comic Sans MS', cursive, sans-serif;">You are invited</h4>
+                                <p class="text-xs text-stone-400">Playful / Comic Font</p>
+                            </div>
+                            <div onclick="checkAnswer('p2q2', true, 'Excellent! A Serif font provides a classic and elegant feel.')" class="quiz-option cursor-pointer bg-white p-4 md:p-6 rounded-lg border-2 border-stone-200 text-center">
+                                <h4 class="text-xl md:text-2xl text-stone-900 mb-1 serif-font italic">You are invited</h4>
+                                <p class="text-xs text-stone-400">Elegant Serif Font</p>
+                            </div>
+                        </div>
+                        <div id="p2q2-feedback" class="hidden mt-3 p-3 rounded font-bold text-sm border"></div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="mb-6 md:mb-8">
+                        <p class="font-bold text-stone-800 mb-4 text-sm md:text-base">Q3. You are adding icons for "Wifi", "Pool", and "Dining". Which set shows better <span class="text-stone-900">Consistency <span class="vocab">(一致性)</span></span>?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div onclick="checkAnswer('p2q3', false, 'Incorrect. Mixing a 3D icon, a flat colourful icon, and a black line icon looks messy and unprofessional.')" class="quiz-option cursor-pointer bg-white p-4 md:p-6 rounded-lg border-2 border-stone-200 text-center">
+                                <div class="flex justify-center gap-4 text-xl md:text-2xl mb-2">
+                                    <span>📶</span> <!-- Emoji/3D style -->
+                                    <span class="text-blue-500 font-bold">≈</span> <!-- Text style -->
+                                    <span class="text-stone-800">🍽️</span> <!-- Emoji style -->
+                                </div>
+                                <p class="text-xs text-stone-400">Mixed Styles</p>
+                            </div>
+                            <div onclick="checkAnswer('p2q3', true, 'Correct! Using the same line-weight and colour for all icons creates a cohesive <span class=\'vocab\'>(連貫)</span> design.')" class="quiz-option cursor-pointer bg-white p-4 md:p-6 rounded-lg border-2 border-stone-200 text-center">
+                                <div class="flex justify-center gap-4 md:gap-6 text-lg md:text-xl mb-2 text-stone-600 font-light">
+                                    <!-- Simple SVG placeholders for line icons -->
+                                    <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"></path></svg>
+                                    <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                                    <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                </div>
+                                <p class="text-xs text-stone-400">Minimalist Line Icons</p>
+                            </div>
+                        </div>
+                        <div id="p2q3-feedback" class="hidden mt-3 p-3 rounded font-bold text-sm border"></div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="mb-4 md:mb-8">
+                        <p class="font-bold text-stone-800 mb-4 text-sm md:text-base">Q4. Color Psychology: We are designing a brochure for our <span class="text-indigo-400">Relaxation Spa</span>. Which colours promote calmness?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div onclick="checkAnswer('p2q4', true, 'Correct! Soft blues, lavenders, and whites lower heart rates and feel peaceful.')" class="quiz-option cursor-pointer bg-white p-4 rounded-lg border-2 border-stone-200 flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+                                <div class="flex">
+                                    <div class="w-6 h-6 sm:w-8 sm:h-8 bg-blue-200 rounded-l"></div>
+                                    <div class="w-6 h-6 sm:w-8 sm:h-8 bg-indigo-200"></div>
+                                    <div class="w-6 h-6 sm:w-8 sm:h-8 bg-stone-100 rounded-r"></div>
+                                </div>
+                                <p class="font-bold text-stone-700 text-sm md:text-base text-center sm:text-left">Soft Blues & Lavenders</p>
+                            </div>
+                            <div onclick="checkAnswer('p2q4', false, 'Incorrect. Red and yellow are high-energy colours, better suited for fast food or gyms.')" class="quiz-option cursor-pointer bg-white p-4 rounded-lg border-2 border-stone-200 flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+                                <div class="flex">
+                                    <div class="w-6 h-6 sm:w-8 sm:h-8 bg-red-600 rounded-l"></div>
+                                    <div class="w-6 h-6 sm:w-8 sm:h-8 bg-orange-500"></div>
+                                    <div class="w-6 h-6 sm:w-8 sm:h-8 bg-yellow-400 rounded-r"></div>
+                                </div>
+                                <p class="font-bold text-stone-700 text-sm md:text-base text-center sm:text-left">Bright Red & Yellow</p>
+                            </div>
+                        </div>
+                        <div id="p2q4-feedback" class="hidden mt-3 p-3 rounded font-bold text-sm border"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         PART 3: The Perfect Arrangement
+         ========================================== -->
+    <section id="part3-page" class="hidden-section flex-1 py-8 md:py-12 px-4 md:px-6 relative z-10 min-h-screen">
+        <div class="max-w-4xl mx-auto w-full fade-in-up">
+            <button onclick="switchPage('toc-page')" class="text-stone-500 hover:text-stone-800 mb-4 md:mb-6 flex items-center text-sm font-bold transition-colors uppercase tracking-wider py-2">← Directory</button>
+            
+            <div class="hotel-card p-6 md:p-12 mb-6 md:mb-8">
+                <h2 class="text-2xl md:text-4xl font-bold text-stone-900 mb-4 md:mb-6">3. The Perfect Arrangement <span class="vocab">(排版)</span></h2>
+                
+                <h3 class="serif-font text-xl md:text-2xl font-bold text-stone-800 mt-4 md:mt-6">A. Contrast <span class="vocab">(對比度)</span></h3>
+                <ul class="bullet-list text-stone-700 text-base md:text-lg mb-6 md:mb-8 mt-3 md:mt-4">
+                    <li>You do not need a black background, you just need <b>strong contrast</b>.</li>
+                    <li>Dark text on a light background (or vice versa) works perfectly.</li>
+                    <li>If contrast is poor, our guests cannot read the information.</li>
+                </ul>
+
+                <h3 class="serif-font text-xl md:text-2xl font-bold text-stone-800 mt-4 md:mt-6">B. Visual Hierarchy <span class="vocab">(視覺層次)</span></h3>
+                <ul class="bullet-list text-stone-700 text-base md:text-lg mb-6 md:mb-8 mt-3 md:mt-4">
+                    <li>Organise your information logically <span class="vocab">(有邏輯地)</span>.</li>
+                    <li>The most important detail (Title) must be the largest.</li>
+                    <li>Secondary details <span class="vocab">(次要細節)</span> like Time and Venue should be smaller. Do not make everything the same size!</li>
+                </ul>
+
+                <div class="text-center mt-8 md:mt-10">
+                    <button onclick="toggleExercise('ex3')" class="w-full sm:w-auto px-6 md:px-8 py-3 font-bold text-stone-800 bg-white border-2 border-stone-300 rounded hover:border-[#b48600] hover:text-[#b48600] transition-colors shadow-sm">
+                        Unlock Practical Exercises 📝
+                    </button>
+                </div>
+            </div>
+
+            <!-- EXERCISE CONTAINER -->
+            <div id="ex3" class="exercise-container">
+                <div class="hotel-card p-6 md:p-8 bg-stone-50 border-t-4 border-t-emerald-700">
+                    <h3 class="text-xl md:text-2xl font-bold text-emerald-900 mb-4 md:mb-6">Training Suite: Layout</h3>
+                    
+                    <!-- Q1 -->
+                    <div class="mb-6 md:mb-8">
+                        <p class="font-bold text-stone-800 mb-4 text-sm md:text-base">Q1. Evaluate <span class="vocab">(評估)</span> the contrast for our new <span class="text-stone-900">Poolside Bar Menu</span>. Which is readable?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div onclick="checkAnswer('p3q1', false, 'Incorrect. Yellow text on a white background has terrible contrast.')" class="quiz-option cursor-pointer bg-white p-4 md:p-6 rounded-lg border-2 border-stone-200 text-center">
+                                <h4 class="text-lg md:text-xl font-bold text-yellow-300 bg-white p-2">Cocktails & Drinks</h4>
+                                <p class="text-xs text-stone-400 mt-2">Yellow on White</p>
+                            </div>
+                            <div onclick="checkAnswer('p3q1', true, 'Correct! Navy text on a cream background provides excellent contrast.')" class="quiz-option cursor-pointer bg-[#fdfbf7] p-4 md:p-6 rounded-lg border-2 border-stone-200 text-center">
+                                <h4 class="text-lg md:text-xl font-bold text-blue-900 p-2">Cocktails & Drinks</h4>
+                                <p class="text-xs text-stone-400 mt-2">Navy on Cream</p>
+                            </div>
+                        </div>
+                        <div id="p3q1-feedback" class="hidden mt-3 p-3 rounded font-bold text-sm border"></div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="mb-6 md:mb-8">
+                        <p class="font-bold text-stone-800 mb-4 text-sm md:text-base">Q2. Which layout has better <b>Visual Hierarchy</b> for the <span class="text-stone-900">New Year's Eve Gala</span>?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div onclick="checkAnswer('p3q2', false, 'Incorrect. Everything is the same size, making it hard to know what to read first.')" class="quiz-option cursor-pointer bg-white p-4 md:p-6 rounded-lg border-2 border-stone-200 text-center flex flex-col justify-center">
+                                <p class="text-base md:text-lg font-bold mb-1 md:mb-2">NEW YEAR'S EVE GALA</p>
+                                <p class="text-base md:text-lg font-bold mb-1 md:mb-2">JOIN US AT 8 PM</p>
+                                <p class="text-base md:text-lg font-bold">GRAND BALLROOM</p>
+                                <p class="text-xs text-stone-400 mt-3 md:mt-4">Same Size</p>
+                            </div>
+                            <div onclick="checkAnswer('p3q2', true, 'Spot on! The title is large and grabs attention, whilst the details are neatly sized below.')" class="quiz-option cursor-pointer bg-white p-4 md:p-6 rounded-lg border-2 border-stone-200 text-center flex flex-col justify-center">
+                                <h4 class="text-2xl md:text-3xl font-bold mb-1 md:mb-2 serif-font gold-accent leading-tight">New Year's Eve Gala</h4>
+                                <p class="text-xs md:text-sm text-stone-600 mb-1">Join us at 8 PM</p>
+                                <p class="text-xs md:text-sm text-stone-600">Grand Ballroom</p>
+                                <p class="text-xs text-stone-400 mt-3 md:mt-4">Proper Hierarchy</p>
+                            </div>
+                        </div>
+                        <div id="p3q2-feedback" class="hidden mt-3 p-3 rounded font-bold text-sm border"></div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="mb-6 md:mb-8">
+                        <p class="font-bold text-stone-800 mb-4 text-sm md:text-base">Q3. Look at the <b>Alignment <span class="vocab">(對齊)</span></b> of this text block. Which is more professional?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div onclick="checkAnswer('p3q3', true, 'Correct! Consistent left-alignment creates a clean, invisible line that is easy for the eye to follow.')" class="quiz-option cursor-pointer bg-white p-4 md:p-6 rounded-lg border-2 border-stone-200">
+                                <div class="text-left">
+                                    <h4 class="font-bold text-base md:text-lg mb-1">Room Service</h4>
+                                    <p class="text-xs md:text-sm text-stone-600">Available 24 hours.</p>
+                                    <p class="text-xs md:text-sm text-stone-600">Dial 0 for assistance.</p>
+                                </div>
+                                <p class="text-xs text-stone-400 mt-3 md:mt-4 text-center">Consistent Left Alignment</p>
+                            </div>
+                            <div onclick="checkAnswer('p3q3', false, 'Incorrect. Mixing center, left, and right alignment makes the design look messy and disorganised.')" class="quiz-option cursor-pointer bg-white p-4 md:p-6 rounded-lg border-2 border-stone-200">
+                                <div>
+                                    <h4 class="font-bold text-base md:text-lg mb-1 text-center">Room Service</h4>
+                                    <p class="text-xs md:text-sm text-stone-600 text-left">Available 24 hours.</p>
+                                    <p class="text-xs md:text-sm text-stone-600 text-right">Dial 0 for assistance.</p>
+                                </div>
+                                <p class="text-xs text-stone-400 mt-3 md:mt-4 text-center">Mixed Alignment</p>
+                            </div>
+                        </div>
+                        <div id="p3q3-feedback" class="hidden mt-3 p-3 rounded font-bold text-sm border"></div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="mb-4 md:mb-8">
+                        <p class="font-bold text-stone-800 mb-4 text-sm md:text-base">Q4. <b>White Space <span class="vocab">(留白)</span></b> is crucial. Which layout uses space better?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div onclick="checkAnswer('p3q4', false, 'Incorrect. The text is touching the edges. It feels cramped and uncomfortable to read.')" class="quiz-option cursor-pointer bg-white p-2 rounded-lg border-2 border-stone-200">
+                                <div class="bg-stone-100 h-full w-full border border-stone-300">
+                                    <p class="text-xs md:text-sm m-0 p-0 leading-tight">Welcome to the Grand Design Hotel. Enjoy your stay with us.</p>
+                                </div>
+                                <p class="text-xs text-stone-400 mt-2 text-center">No Margins (Cramped)</p>
+                            </div>
+                            <div onclick="checkAnswer('p3q4', true, 'Excellent! Generous margins (white space) give the design room to breathe and look luxurious.')" class="quiz-option cursor-pointer bg-white p-2 rounded-lg border-2 border-stone-200">
+                                <div class="bg-stone-100 h-full w-full border border-stone-300 p-4 md:p-6 flex items-center justify-center">
+                                    <p class="text-xs md:text-sm text-center">Welcome to the Grand Design Hotel.<br>Enjoy your stay with us.</p>
+                                </div>
+                                <p class="text-xs text-stone-400 mt-2 text-center">Good Use of White Space</p>
+                            </div>
+                        </div>
+                        <div id="p3q4-feedback" class="hidden mt-3 p-3 rounded font-bold text-sm border"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         PART 4: The Concierge Desk
+         ========================================== -->
+    <section id="part4-page" class="hidden-section flex-1 py-8 md:py-12 px-4 md:px-6 relative z-10 min-h-screen">
+        <div class="max-w-4xl mx-auto w-full fade-in-up">
+            <button onclick="switchPage('toc-page')" class="text-stone-500 hover:text-stone-800 mb-4 md:mb-6 flex items-center text-sm font-bold transition-colors uppercase tracking-wider py-2">← Directory</button>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                <!-- Mission Checklist -->
+                <div class="hotel-card p-6 md:p-8">
+                    <div class="text-3xl md:text-4xl mb-3 md:mb-4">📝</div>
+                    <h2 class="text-xl md:text-2xl font-bold serif-font text-stone-900 mb-3 md:mb-4">Your CA1 Mission</h2>
+                    
+                    <p class="mb-4 md:mb-6 text-stone-600 text-sm md:text-base">
+                        It is time to craft your portfolio <span class="vocab">(製作作品集)</span> poster. Ensure it meets our five-star standards.
+                    </p>
+                    
+                    <div class="bg-stone-50 p-4 md:p-6 rounded-lg border border-stone-200 mb-4 md:mb-6">
+                        <h3 class="font-bold text-base md:text-lg text-stone-800 mb-3 md:mb-4">✅ The Grand Checklist:</h3>
+                        
+                        <ul class="space-y-3 md:space-y-4 text-stone-700 text-sm md:text-base">
+                            <li class="flex items-start gap-3">
+                                <span class="text-base md:text-lg mt-0.5">1️⃣</span> 
+                                <div>Open Canva and set your canvas.</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-base md:text-lg mt-0.5">2️⃣</span> 
+                                <div>Select imagery that fits the event.</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-base md:text-lg mt-0.5">3️⃣</span> 
+                                <div>Choose 2-3 consistent colours & fonts.</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-base md:text-lg mt-0.5">4️⃣</span> 
+                                <div>Organise with clear hierarchy & contrast.</div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <a href="https://www.canva.com" target="_blank" class="block w-full text-center py-3 md:py-4 gold-bg text-white font-bold rounded hover:bg-yellow-700 transition-colors shadow-md">
+                        Access Canva Studio
+                    </a>
+                </div>
+
+                <!-- Canva Resources -->
+                <div class="hotel-card p-6 md:p-8">
+                    <div class="text-3xl md:text-4xl mb-3 md:mb-4">📚</div>
+                    <h2 class="text-xl md:text-2xl font-bold serif-font text-stone-900 mb-3 md:mb-4">Concierge <span class="vocab">(禮賓部)</span> Resources</h2>
+                    
+                    <p class="mb-4 md:mb-6 text-stone-600 text-sm md:text-base">
+                        Require assistance with Canva? Our concierge recommends these guides:
+                    </p>
+                    
+                    <div class="space-y-3 md:space-y-4">
+                        <a href="https://www.canva.com/designschool/tutorials/getting-started/" target="_blank" class="flex items-center gap-3 md:gap-4 p-3 md:p-4 bg-stone-50 rounded-lg hover:border-[#b48600] border border-stone-200 transition-colors group">
+                            <div class="text-2xl md:text-3xl">🎓</div>
+                            <div>
+                                <h4 class="font-bold text-sm md:text-base text-stone-800 group-hover:text-[#b48600] transition-colors">Canva Design School</h4>
+                                <p class="text-xs md:text-sm text-stone-500 mt-0.5 md:mt-1">Official beginner tutorials</p>
+                            </div>
+                        </a>
+                        
+                        <a href="https://www.youtube.com/results?search_query=canva+tutorial+for+beginners" target="_blank" class="flex items-center gap-3 md:gap-4 p-3 md:p-4 bg-stone-50 rounded-lg hover:border-[#b48600] border border-stone-200 transition-colors group">
+                            <div class="text-2xl md:text-3xl">▶️</div>
+                            <div>
+                                <h4 class="font-bold text-sm md:text-base text-stone-800 group-hover:text-[#b48600] transition-colors">YouTube Masterclasses</h4>
+                                <p class="text-xs md:text-sm text-stone-500 mt-0.5 md:mt-1">Search for visual video guides</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         AUDIO PLAYER (Mobile Optimized & Hidden on Cover)
+         ========================================== -->
+    <!-- Added id="audio-player-container" and style="display: none;" so it's hidden by default on the cover page -->
+    <div id="audio-player-container" style="display: none;" class="fixed bottom-0 left-0 w-full md:bottom-6 md:left-auto md:right-6 md:w-auto bg-white/95 backdrop-blur-sm p-3 md:p-4 md:rounded-full shadow-[0_-4px_20px_rgba(0,0,0,0.1)] md:shadow-xl border-t md:border border-stone-200 z-50 items-center justify-center md:justify-start gap-3 transition-all">
+        <span class="text-xl hidden md:inline-block">🎵</span>
+        <audio id="bg-audio" controls class="h-10 md:h-8 w-full max-w-[300px] md:w-48 outline-none">
+            <source src="" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <!-- ==========================================
+         JAVASCRIPT
+         ========================================== -->
+    <script>
+        // Audio files mapping
+        const audioFiles = {
+            'part1-page': '0001-Block.mp3',
+            'part2-page': '0002-Block.mp3',
+            'part3-page': '0003-Block.mp3',
+            'part4-page': '0004-Block.mp3'
+        };
+
+        // Page Navigation
+        function switchPage(targetPageId) {
+            const sections = ['landing-page', 'toc-page', 'part1-page', 'part2-page', 'part3-page', 'part4-page'];
+            sections.forEach(id => {
+                document.getElementById(id).classList.add('hidden-section');
+            });
+
+            const targetPage = document.getElementById(targetPageId);
+            targetPage.classList.remove('hidden-section');
+            
+            const animatedElements = targetPage.querySelectorAll('.fade-in-up');
+            animatedElements.forEach(el => {
+                el.style.animation = 'none';
+                el.offsetHeight; 
+                el.style.animation = null; 
+            });
+
+            window.scrollTo(0, 0);
+            
+            document.querySelectorAll('.exercise-container').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.querySelectorAll('[id$="-feedback"]').forEach(el => {
+                el.classList.add('hidden');
+            });
+
+            // Handle Audio Player Visibility & Switching
+            const audioContainer = document.getElementById('audio-player-container');
+            const audioPlayer = document.getElementById('bg-audio');
+            
+            // Hide on landing page, show on other pages
+            if (targetPageId === 'landing-page') {
+                audioContainer.style.display = 'none';
+                audioPlayer.pause();
+                audioPlayer.currentTime = 0;
+            } else {
+                audioContainer.style.display = 'flex';
+                
+                // If the target page has a specific audio file
+                if (audioFiles[targetPageId]) {
+                    audioPlayer.src = audioFiles[targetPageId];
+                    // Try to auto-play, catch error if browser blocks it (common on mobile)
+                    audioPlayer.play().catch(e => console.log("Autoplay prevented by browser, user needs to click play."));
+                } else {
+                    // E.g. TOC page might not have specific audio, just pause or let it be
+                    audioPlayer.pause();
+                }
+            }
+        }
+
+        // Toggle Exercise Visibility
+        function toggleExercise(exerciseId) {
+            const exContainer = document.getElementById(exerciseId);
+            if (exContainer.classList.contains('active')) {
+                exContainer.classList.remove('active');
+            } else {
+                exContainer.classList.add('active');
+                setTimeout(() => {
+                    // Adjust scroll position to account for the mobile audio player at the bottom
+                    const yOffset = -20; 
+                    const y = exContainer.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                    window.scrollTo({top: y, behavior: 'smooth'});
+                }, 100);
+            }
+        }
+
+        // Quiz Logic
+        function checkAnswer(questionId, isCorrect, message) {
+            const feedbackEl = document.getElementById(questionId + '-feedback');
+            
+            const bgClass = isCorrect ? 'bg-green-50' : 'bg-red-50';
+            const textClass = isCorrect ? 'text-green-800' : 'text-red-800';
+            const borderClass = isCorrect ? 'border-green-300' : 'border-red-300';
+            
+            feedbackEl.className = `mt-3 p-3 md:p-4 rounded-lg font-bold text-sm border ${bgClass} ${textClass} ${borderClass}`;
+            
+            const icon = isCorrect ? '✓ ' : '✗ ';
+            feedbackEl.innerHTML = icon + message;
+            feedbackEl.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
